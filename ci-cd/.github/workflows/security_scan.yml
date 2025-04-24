@@ -1,0 +1,16 @@
+name: CI Security Scan
+
+on: [push, pull_request]
+
+jobs:
+  security:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checka ut kod
+        uses: actions/checkout@v3
+
+      - name: Installera Checkov
+        run: pip install checkov
+
+      - name: Kör Checkov på Terraform-kod
+        run: checkov -d terraform/

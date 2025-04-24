@@ -1,0 +1,27 @@
+- name: Förbättra säkerheten på testmiljön
+  hosts: all
+  become: yes
+  tasks:
+    - name: Inaktivera root-inloggning via SSH
+      lineinfile:
+        path: /etc/ssh/sshd_config
+        regexp: '^PermitRootLogin'
+        line: 'PermitRootLogin no'
+        state: present
+
+    - name: Säkerställ att UFW (brandvägg) är aktiverad
+      ufw:
+        state: enabled
+
+    - name: Tillåt bara SSH från en viss IP
+      ufw:
+        rule: allow
+        port: ssh
+        proto: tcp
+        from_ip: 192.168.1.0/24
+
+    - name: Inaktivera osäkra protokoll
+      lineinfile:
+        path: /etc/ssh/sshd_config
+        regexp: '^Protocol'
+        line: 'Protocol 2'
