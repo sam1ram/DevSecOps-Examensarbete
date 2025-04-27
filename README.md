@@ -110,7 +110,7 @@ Beskriv:
 
 ---
 
-## 📝 Rapportmall (förslag på struktur)
+## 📝 Rapportmall
 
 1. Inledning – syfte, bakgrund, mål
 2. Metod – verktyg, tekniker, process
@@ -131,13 +131,8 @@ Beskriv:
 
 ---
 
-## 💡 Tips för högre betyg
+## 💡 Inkludera detta vid tillfälle - viktigt för högre betyg
 
 - Implementera Sentinel eller OPA för policy enforcement
 - Reflektera över branschnytta i din rapport
 - Skapa en demo-video eller GIF av din pipeline
-
----
-
-✅ Klart!
-Du har nu en komplett DevSecOps-projektmiljö och guide för att genomföra ditt examensarbete.
