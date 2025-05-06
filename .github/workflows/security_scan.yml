@@ -1,0 +1,26 @@
+name: Checkov Terraform Scan
+
+on:
+  push:
+    paths:
+      - '**/*.tf'
+  pull_request:
+    paths:
+      - '**/*.tf'
+
+jobs:
+  checkov:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Klona repo
+        uses: actions/checkout@v3
+
+      - name: Installera Checkov
+        run: |
+          pip install checkov
+
+      - name: Kör Checkov
+        run: |
+          checkov -d .
+

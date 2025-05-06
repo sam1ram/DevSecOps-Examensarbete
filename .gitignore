@@ -1,0 +1,18 @@
+# Terraform
+*.tfstate
+*.tfstate.backup
+.terraform/
+crash.log
+
+# SSH keys (lägg inte ut dessa!)
+*.pem
+*.key
+*.pub
+
+# Python / Checkov cache
+__pycache__/
+*.pyc
+
+# VSCode
+.vscode/
+
