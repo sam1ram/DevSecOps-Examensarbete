@@ -1,0 +1,55 @@
+---
+- name: CIS-baserad härdning av Ubuntu-server
+  hosts: azurevm
+  become: yes
+
+  tasks:
+    - name: Uppdatera alla paket
+      shell: |
+        apt update
+        apt upgrade -y
+
+    - name: "Ta bort osäkra tjänster (ex: telnet, rsh)"
+      shell: |
+        apt remove -y telnet rsh-client rsh-redone-client
+
+    - name: Aktivera UFW (brandvägg)
+      ufw:
+        state: enabled
+        policy: deny
+
+    - name: Tillåt SSH genom brandväggen
+      ufw:
+        rule: allow
+        port: 22
+        proto: tcp
+
+    - name: Inaktivera root-inloggning via SSH
+      lineinfile:
+        path: /etc/ssh/sshd_config
+        regexp: '^PermitRootLogin'
+        line: 'PermitRootLogin no'
+
+    - name: Tvinga SSH-nyckelinloggning
+      lineinfile:
+        path: /etc/ssh/sshd_config
+        regexp: '^PasswordAuthentication'
+        line: 'PasswordAuthentication no'
+
+    - name: Starta om SSH-tjänst
+      service:
+        name: ssh
+        state: restarted
+
+    - name: Installera rsyslog
+      shell: apt install -y rsyslog
+
+    - name: Installera auditd
+      shell: apt install -y auditd
+
+    - name: Starta auditd
+      service:
+        name: auditd
+        state: started
+        enabled: true
+
